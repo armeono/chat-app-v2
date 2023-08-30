@@ -1,2 +1,2 @@
-# chat-app-v2
+# noodle.io
 Chat application built using Next.js and Rust.
