@@ -1,7 +1,11 @@
-export default function Chat() {
+import Menu from "@/components/menu";
+
+const Chat = () => {
   return (
-    <div>
-      <h1 className="text-blue-500">Welcome to the chat :D</h1>
+    <div className="h-full w-full z-10 relative">
+      <Menu />
     </div>
   );
-}
+};
+
+export default Chat;
