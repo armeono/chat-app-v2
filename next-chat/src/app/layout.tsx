@@ -1,6 +1,9 @@
+import Menu from "@/components/menu";
 import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { usePathname } from "next/navigation";
+import Providers from "./Providers";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,7 +22,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <div className="h-screen w-screen">
           <div className="h-[600px] w-1/4 -rotate-45 -z-1  absolute bg-gradient-to-r from-blue-500 to-red-500 blur-3xl opacity-40"></div>
-          {children}
+          <Providers>{children}</Providers>
         </div>
       </body>
     </html>

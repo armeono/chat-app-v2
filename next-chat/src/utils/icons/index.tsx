@@ -4,9 +4,11 @@ export const menuIcons = [
   {
     type: "message",
     img: <BiMessageDetail size={38} />,
+    link: "/chat",
   },
   {
-    type: "message",
+    type: "settings",
     img: <BiCog size={38} />,
+    link: "/settings",
   },
 ];

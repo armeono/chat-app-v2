@@ -1,11 +1,7 @@
 import Menu from "@/components/menu";
 
 const Chat = () => {
-  return (
-    <div className="h-full w-full z-10 relative">
-      <Menu />
-    </div>
-  );
+  return <div className="text-white">Chat</div>;
 };
 
 export default Chat;

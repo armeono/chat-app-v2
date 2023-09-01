@@ -1,6 +1,7 @@
 import { menuIcons } from "@/utils/icons";
 import { BiBowlHot, BiUserCircle } from "react-icons/bi";
 import Icon from "../icon";
+import Link from "next/link";
 
 const Menu = () => {
   return (
@@ -11,7 +12,11 @@ const Menu = () => {
 
       <div className="flex flex-col gap-4">
         {menuIcons.map((icon, index) => {
-          return <Icon key={index}>{icon.img}</Icon>;
+          return (
+            <Link key={index} href={icon.link}>
+              <Icon>{icon.img}</Icon>
+            </Link>
+          );
         })}
       </div>
 
