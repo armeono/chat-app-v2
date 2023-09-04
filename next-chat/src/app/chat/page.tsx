@@ -1,7 +1,11 @@
-import Menu from "@/components/menu";
+import ChatSidebar from "@/components/ChatSidebar";
 
 const Chat = () => {
-  return <div className="text-white">Chat</div>;
+  return (
+    <div className="text-white">
+      <ChatSidebar />
+    </div>
+  );
 };
 
 export default Chat;

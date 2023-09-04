@@ -1,4 +1,4 @@
-import Menu from "@/components/menu";
+import Menu from "@/components/Menu";
 
 type Props = {
   children?: React.ReactNode;
@@ -7,7 +7,7 @@ type Props = {
 const NavigationLayout = ({ children }: Props) => {
   return (
     <div className="h-full w-full flex text-white">
-      <div className="h-full w-full z-10 relative">
+      <div className="h-full w-[80px] z-10 relative">
         <Menu />
       </div>
       {children}

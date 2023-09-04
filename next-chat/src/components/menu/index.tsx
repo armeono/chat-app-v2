@@ -1,6 +1,6 @@
 import { menuIcons } from "@/utils/icons";
 import { BiBowlHot, BiUserCircle } from "react-icons/bi";
-import Icon from "../icon";
+import Icon from "../Icon";
 import Link from "next/link";
 
 const Menu = () => {

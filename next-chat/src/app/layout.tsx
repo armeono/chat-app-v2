@@ -1,4 +1,4 @@
-import Menu from "@/components/menu";
+import Menu from "@/components/Menu";
 import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
@@ -21,7 +21,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <div className="h-screen w-screen">
-          <div className="h-[600px] w-1/4 -rotate-45 -z-1  absolute bg-gradient-to-r from-blue-500 to-red-500 blur-3xl opacity-40"></div>
+          <div className="h-[800px] w-1/4 -rotate-45 -z-1 rounded-3xl  absolute bg-gradient-to-r from-blue-500 to-red-500 blur-3xl opacity-40"></div>
           <Providers>{children}</Providers>
         </div>
       </body>
