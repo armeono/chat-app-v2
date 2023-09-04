@@ -1,7 +1,9 @@
 import { BiEdit } from "react-icons/bi";
 import Search from "../Search";
+import ConversationCard from "../ConversationCard";
 
 const ChatSidebar = () => {
+  const conversations = [{ id: "1" }, { id: "2" }];
   return (
     <div className="h-full w-[300px] border-r border-white border-opacity-20">
       <div className="border-b border-white border-opacity-20 pb-4">
@@ -13,6 +15,9 @@ const ChatSidebar = () => {
           <Search />
         </div>
       </div>
+      {conversations.map((conversation, index) => {
+        return <ConversationCard key={index} conversation={conversation} />;
+      })}
     </div>
   );
 };
