@@ -1,11 +1,13 @@
 import { BiEdit } from "react-icons/bi";
 import Search from "../Search";
 import ConversationCard from "../ConversationCard";
+import { Conversation } from "@/types/conversation";
 
 const ChatSidebar = () => {
-  const conversations = [{ id: "1" }, { id: "2" }];
+  const conversations: Conversation[] = [{ id: "1" }, { id: "2" }];
+
   return (
-    <div className="h-full w-[300px] border-r border-white border-opacity-20">
+    <div className="h-full w-[300px] border-r border-white border-opacity-20 z-10">
       <div className="border-b border-white border-opacity-20 pb-4">
         <div className="w-full h-12 flex justify-center items-center px-4 py-8 relative">
           <h1 className="text-2xl font-semibold">Chat</h1>
