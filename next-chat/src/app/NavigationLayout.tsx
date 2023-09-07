@@ -6,12 +6,12 @@ type Props = {
   children?: React.ReactNode;
 };
 
-const noMenuLinks = ["/auth/signIn", "/auth/signUp"];
+const noMenuLinks = ["/login", "/signup"];
 
 const NavigationLayout = ({ children }: Props) => {
   const pathname = usePathname();
 
-  const shouldRenderMenu = !noMenuLinks.includes(pathname);
+  const shouldRenderMenu = !noMenuLinks.includes(pathname || "");
 
   return (
     <div className="h-full w-full flex text-white">

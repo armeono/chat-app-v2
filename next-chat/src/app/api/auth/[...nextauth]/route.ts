@@ -4,9 +4,20 @@ import CredentialsProvider from "next-auth/providers/credentials";
 
 export const authOptions: NextAuthOptions = {
   pages: {
-    signIn: "/auth/signIn",
+    signIn: "/login",
   },
   secret: process.env.NEXTAUTH_SECRET,
+  callbacks: {
+    async signIn() {
+      return true;
+    },
+    async redirect({ baseUrl }) {
+      return baseUrl;
+    },
+    async session({ session, token }) {
+      return session;
+    },
+  },
   providers: [
     CredentialsProvider({
       id: "credentials",
@@ -16,7 +27,7 @@ export const authOptions: NextAuthOptions = {
         console.log(credentials);
         console.log(req);
 
-        const user = { id: "1", name: "J Smith", email: "jsmith@example.com" };
+        const user = { id: "1" };
 
         if (user) {
           return user;
@@ -28,4 +39,6 @@ export const authOptions: NextAuthOptions = {
   ],
 };
 
-export default NextAuth(authOptions);
+const handler = NextAuth(authOptions);
+
+export { handler as GET, handler as POST };

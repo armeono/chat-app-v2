@@ -25,34 +25,20 @@ const LoginForm = () => {
   const onSubmit: SubmitHandler<LoginFormValues> = async (
     formData: LoginFormValues
   ) => {
-    console.log(formData);
-
     try {
-      const data = await signIn("credentials", {
+      await signIn("credentials", {
         username: formData.username,
         password: formData.password,
         redirect: false,
+      }).then((res) => {
+        // if (!res) throw new Error("There has been an error logging in!");
+        // if (res.error) {
+        //   console.log(res.error);
+        // }
       });
-
-      console.log(data);
-
-      // await signIn("credentials", {
-      //   username: formData.username,
-      //   password: formData.password,
-      //   redirect: false,
-      //   callbackUrl: `${window.location.origin}`,
-      // }).then((res) => {
-      //   if (!res) throw new Error("There has been an error logging in!");
-
-      //   if (res.error) {
-      //     console.log(res.error);
-      //   }
-      // });
     } catch (err) {
       console.log(err);
     }
-
-    // router.push("/chat");
   };
 
   const inputStyles =
