@@ -8,8 +8,11 @@ const io = new Server(8000, {
 
 io.on("connection", (socket) => {
   console.log("User connected: ", socket.id);
-});
 
-io.on("disconnect", (socket) => {
-  console.log("User disconnected: ", socket.id);
+  socket.on("send-message", (message, room) => {
+    console.log("Message: ", message);
+    console.log("Room: ", room);
+
+    socket.broadcast.emit("receive-message", message);
+  });
 });
