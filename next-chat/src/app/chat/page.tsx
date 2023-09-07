@@ -16,7 +16,7 @@ const Chat = () => {
   const { currentConversation } = useCurrentConversation();
   const [message, setMessage] = useState<string>("No message");
 
-  socket.on("receive-message", (message: string) => {
+  socket.on("message", (message: string) => {
     setMessage(message);
   });
 
@@ -28,14 +28,6 @@ const Chat = () => {
     <div className="text-white flex">
       <ChatSidebar />
       <h1>{currentConversation}</h1>
-      <button
-        onClick={() => {
-          socket.emit("send-message", "yo does this work");
-        }}
-      >
-        testing websockets
-      </button>
-      <h1>{message}</h1>
     </div>
   );
 };

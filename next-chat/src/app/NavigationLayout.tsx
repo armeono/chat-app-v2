@@ -6,7 +6,7 @@ type Props = {
   children?: React.ReactNode;
 };
 
-const noMenuLinks = ["/login", "/signup"];
+const noMenuLinks = ["/auth/signIn", "/auth/signUp"];
 
 const NavigationLayout = ({ children }: Props) => {
   const pathname = usePathname();
