@@ -1,24 +1,20 @@
 "use client";
 import ChatSidebar from "@/components/ChatSidebar";
-import { websocketAxios } from "@/config/axios";
 import { useCurrentConversation } from "@/utils/stores/currentConversation";
-import axios from "axios";
 import { useEffect, useState } from "react";
-const socket = new WebSocket("ws://127.0.0.1:8000/api/ws", "echo-protocol");
+import { io } from "socket.io-client";
+
+const socket = io("http://localhost:8000");
 
 const socketInitializer = async () => {
-  socket.onopen = () => {
+  socket.on("connect", () => {
     console.log("connected");
-  };
+  });
 };
 
 const Chat = () => {
   const { currentConversation } = useCurrentConversation();
   const [message, setMessage] = useState<string>("");
-
-  socket.onmessage = (e) => {
-    console.log(e.data);
-  };
 
   useEffect(() => {
     socketInitializer();
@@ -28,14 +24,6 @@ const Chat = () => {
     <div className="text-white flex">
       <ChatSidebar />
       <h1>{currentConversation}</h1>
-
-      <button
-        onClick={() => {
-          socket.send("hello");
-        }}
-      >
-        Im testing the websocket
-      </button>
     </div>
   );
 };
