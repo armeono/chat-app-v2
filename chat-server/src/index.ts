@@ -9,10 +9,10 @@ const io = new Server(8000, {
 io.on("connection", (socket) => {
   console.log("User connected: ", socket.id);
 
-  socket.on("send-message", (message, room) => {
+  socket.on("message", (message, room) => {
     console.log("Message: ", message);
     console.log("Room: ", room);
 
-    socket.broadcast.emit("receive-message", message);
+    socket.broadcast.emit("message", message);
   });
 });

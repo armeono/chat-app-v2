@@ -31,10 +31,13 @@ const LoginForm = () => {
         password: formData.password,
         redirect: false,
       }).then((res) => {
-        // if (!res) throw new Error("There has been an error logging in!");
-        // if (res.error) {
-        //   console.log(res.error);
-        // }
+        if (!res) throw new Error("There has been an error logging in!");
+
+        if (res.error) {
+          console.log(res.error);
+        }
+
+        router.push("/chat");
       });
     } catch (err) {
       console.log(err);

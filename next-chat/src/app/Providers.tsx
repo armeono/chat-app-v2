@@ -8,6 +8,7 @@ type Props = {
 };
 
 const Providers = ({ children }: Props, { pageProps }: AppProps) => {
+  console.log(pageProps);
   return (
     <SessionProvider session={pageProps?.session}>
       <NavigationLayout>{children}</NavigationLayout>

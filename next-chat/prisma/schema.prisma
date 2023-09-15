@@ -13,8 +13,8 @@ model User {
   password      String
   conversations Conversation[]
   messages      Message[]
-  Friends       User[]         @relation("friends")
-  FriendOf      User[]         @relation("friends")
+  friends       User[]         @relation("friends")
+  friendOf      User[]         @relation("friends")
 }
 
 model Message {
