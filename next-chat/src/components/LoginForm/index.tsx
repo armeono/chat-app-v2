@@ -33,11 +33,13 @@ const LoginForm = () => {
       }).then((res) => {
         if (!res) throw new Error("There has been an error logging in!");
 
+        console.log("response", res);
+
         if (res.error) {
           console.log(res.error);
+        } else {
+          router.push("/chat");
         }
-
-        router.push("/chat");
       });
     } catch (err) {
       console.log(err);

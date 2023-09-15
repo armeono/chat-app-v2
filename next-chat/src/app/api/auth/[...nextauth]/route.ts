@@ -1,9 +1,11 @@
 import { prisma } from "@/config/prismaClient";
-import { NextAuthOptions } from "next-auth";
 import NextAuth from "next-auth/next";
 import { encode, decode } from "next-auth/jwt";
 import CredentialsProvider from "next-auth/providers/credentials";
+import GoogleProvider from "next-auth/providers/google";
 import bcrypt from "bcrypt";
+import { getSession } from "next-auth/react";
+import { NextAuthOptions } from "next-auth";
 
 export const authOptions: NextAuthOptions = {
   session: {
@@ -20,10 +22,14 @@ export const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
     session({ session, user }: any) {
-      console.log("session", session);
-      console.log("user", user);
-
       return session;
+    },
+    async jwt({ token, user }: any) {
+      if (user) {
+        token.user = user;
+      }
+
+      return token;
     },
   },
   providers: [
@@ -31,7 +37,7 @@ export const authOptions: NextAuthOptions = {
       id: "credentials",
       name: "credentials",
       credentials: {},
-      authorize: async (credentials, req) => {
+      authorize: async (credentials, req): Promise<any> => {
         const { username, password } = credentials as {
           username: string;
           password: string;
@@ -43,23 +49,17 @@ export const authOptions: NextAuthOptions = {
           },
         });
 
-        let matchingPassword = false;
-
         if (!user) throw new Error("Invalid credentials");
 
-        bcrypt.compare(password, user?.password!, (err, result) => {
-          matchingPassword = result;
-        });
+        const passwordMatches = await bcrypt.compare(password, user?.password!);
 
-        if (matchingPassword) {
-          console.log("login success");
+        if (!passwordMatches) {
+          return null;
+        } else {
           return {
             id: String(user.id),
             name: user.username,
-            session: { id: String(user.id), name: user.username },
           };
-        } else {
-          return null;
         }
       },
     }),

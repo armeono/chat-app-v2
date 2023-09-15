@@ -1,5 +1,13 @@
-const Icon = ({ children }: { children: React.ReactNode }) => {
-  return <div className="cursor-pointer">{children}</div>;
+type Props = {
+  children: React.ReactNode;
+  onClick?: () => void;
+};
+const Icon = ({ children, onClick }: Props) => {
+  return (
+    <div className="cursor-pointer" onClick={onClick}>
+      {children}
+    </div>
+  );
 };
 
 export default Icon;
