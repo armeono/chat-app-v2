@@ -1,11 +1,13 @@
 import { BiEdit } from "react-icons/bi";
 import Search from "../Search";
 import ConversationCard from "../ConversationCard";
-import { Conversation } from "@/types/conversation";
+import { Conversation } from "@prisma/client";
 
-const ChatSidebar = () => {
-  const conversations: Conversation[] = [{ id: "1" }, { id: "2" }];
+type Props = {
+  conversations?: Conversation[];
+};
 
+const ChatSidebar = ({ conversations }: Props) => {
   return (
     <div className="h-full w-[300px] border-r border-white border-opacity-20 z-10">
       <div className="border-b border-white border-opacity-20 pb-4">
@@ -17,9 +19,10 @@ const ChatSidebar = () => {
           <Search />
         </div>
       </div>
-      {conversations.map((conversation, index) => {
-        return <ConversationCard key={index} conversation={conversation} />;
-      })}
+      {conversations &&
+        conversations.map((conversation, index) => {
+          return <ConversationCard key={index} conversation={conversation} />;
+        })}
     </div>
   );
 };

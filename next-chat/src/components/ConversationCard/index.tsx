@@ -1,6 +1,6 @@
 "use client";
-import { Conversation } from "@/types/conversation";
 import { useCurrentConversation } from "@/utils/stores/currentConversation";
+import { Conversation } from "@prisma/client";
 
 type Props = {
   conversation: Conversation;
@@ -19,7 +19,7 @@ const ConversationCard = ({ conversation }: Props) => {
     >
       <div className="h-14 w-14 rounded-full border"></div>
       <div>
-        <h2>Group chat</h2>
+        <h2>{conversation.name}</h2>
         <p className="text-sm text-gray-400">Some text in the convo</p>
       </div>
     </div>

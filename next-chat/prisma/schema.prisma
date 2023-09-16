@@ -29,6 +29,7 @@ model Message {
 
 model Conversation {
   id        String    @id @default(uuid())
+  name      String?
   createdAt DateTime  @default(now())
   messages  Message[]
   users     User[]
