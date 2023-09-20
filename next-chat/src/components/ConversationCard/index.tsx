@@ -1,4 +1,5 @@
 "use client";
+import { socket } from "@/app/chat/page";
 import { useCurrentConversation } from "@/utils/stores/currentConversation";
 import { Conversation } from "@prisma/client";
 import { useRouter } from "next/navigation";
@@ -20,6 +21,8 @@ const ConversationCard = ({ conversation }: Props) => {
       onClick={() => {
         setCurrentConversation(conversation.id);
         router.push(`?conversation=${conversation.id}`);
+
+        socket.emit("setup", currentConversation);
       }}
     >
       <div className="h-14 w-14 rounded-full border"></div>

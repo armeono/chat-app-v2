@@ -5,6 +5,7 @@ import { Conversation } from "@prisma/client";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCurrentConversation } from "@/utils/stores/currentConversation";
 import { useEffect } from "react";
+import { socket } from "@/app/chat/page";
 
 type Props = {
   conversations?: Conversation[];
@@ -22,10 +23,13 @@ const ChatSidebar = ({ conversations }: Props) => {
       setCurrentConversation(conversations && conversations[0].id);
 
       router.push(`?conversation=${conversations && conversations[0].id}`);
+      socket.emit("setup", currentConversation);
     } else {
       const conversationId = searchParams.get("conversation");
 
       setCurrentConversation(conversationId);
+
+      socket.emit("setup", currentConversation);
     }
   }, [conversations]);
 
