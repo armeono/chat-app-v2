@@ -7,12 +7,11 @@ const io = new Server(8000, {
 });
 
 io.on("connection", (socket) => {
-  console.log("User connected: ", socket.id);
+  socket.on("message", (receivedObject) => {
+    socket.to(receivedObject.room).emit("message", receivedObject.message);
+  });
 
-  socket.on("message", (message, room) => {
-    console.log("Message: ", message);
-    console.log("Room: ", room);
-
-    socket.broadcast.emit("message", message);
+  socket.on("setup", (id) => {
+    socket.join(id);
   });
 });
