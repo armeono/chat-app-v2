@@ -8,7 +8,7 @@ const io = new Server(8000, {
 
 io.on("connection", (socket) => {
   socket.on("message", (receivedObject) => {
-    socket.to(receivedObject.room).emit("message", receivedObject.message);
+    socket.to(receivedObject.room).emit("message", receivedObject);
   });
 
   socket.on("setup", (id) => {
