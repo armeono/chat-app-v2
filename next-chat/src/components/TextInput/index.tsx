@@ -9,6 +9,7 @@ const TextInput = ({ register, handleSubmit }: Props) => {
   return (
     <>
       <textarea
+        id="message-input"
         className="w-[80%] h-[80%] rounded-md bg-slate-700 outline-none px-2 resize-none"
         {...register("message")}
       />

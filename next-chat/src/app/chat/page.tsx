@@ -1,7 +1,6 @@
 "use client";
 import ChatSidebar from "@/components/ChatSidebar";
-import ReceiverContainer from "@/components/ReceiverContainer";
-import SenderContainer from "@/components/SenderContainer";
+import MessagesContainer from "@/components/MessagesContainer";
 import TextInput from "@/components/TextInput";
 import { getUser } from "@/fetch/getUser";
 import { useCurrentConversation } from "@/utils/stores/currentConversation";
@@ -27,7 +26,8 @@ type ChatForm = {
 
 const Chat = () => {
   const { currentConversation } = useCurrentConversation();
-  const { setCurrentUser } = useCurrentUser();
+  const { user, setCurrentUser } = useCurrentUser();
+  const [messages, setMessages] = useState<any>([]);
   const searchParams = useSearchParams();
 
   const {
@@ -45,15 +45,20 @@ const Chat = () => {
 
   const sendMessage: SubmitHandler<any> = (data) => {
     const message = {
-      message: data.message,
+      text: data.message,
       room: currentConversation,
+      userID: user?.id,
     };
 
+    setMessages([...messages, message]);
+
     socket.emit("message", message);
+
+    (document.getElementById("message-input") as HTMLInputElement).value = "";
   };
 
   socket.on("message", (message) => {
-    console.log(message);
+    setMessages([...messages, message]);
   });
 
   useEffect(() => {
@@ -66,8 +71,7 @@ const Chat = () => {
       <ChatSidebar conversations={data?.user.conversations} />
       <div className="w-[80%] h-full flex flex-col">
         <div className="h-full flex">
-          <ReceiverContainer></ReceiverContainer>
-          <SenderContainer></SenderContainer>
+          <MessagesContainer messages={messages}></MessagesContainer>
         </div>
         <form
           className="h-1/5 w-full flex items-center gap-4 p-4"
