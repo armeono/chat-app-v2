@@ -10,15 +10,9 @@ const TextInput = ({ register, handleSubmit }: Props) => {
     <>
       <textarea
         id="message-input"
-        className="w-[80%] h-[80%] rounded-md bg-slate-700 outline-none px-2 resize-none"
+        className="w-full h-[60%] rounded-md bg-slate-700 outline-none px-2 resize-none"
         {...register("message")}
       />
-      <button
-        className="w-[20%] h-[80%] border rounded-md text-xl hover:bg-white  hover:text-black transition-all"
-        type="submit"
-      >
-        Send
-      </button>
     </>
   );
 };

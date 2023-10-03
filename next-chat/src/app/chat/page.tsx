@@ -2,13 +2,17 @@
 import ChatSidebar from "@/components/ChatSidebar";
 import MessagesContainer from "@/components/MessagesContainer";
 import TextInput from "@/components/TextInput";
-import { getUser } from "@/fetch/getUser";
+import { getUser } from "@/server/getUser";
+import { saveMessage } from "@/server/saveMessage";
+import { Message } from "@/types/message";
 import { useCurrentConversation } from "@/utils/stores/currentConversation";
 import { useCurrentUser } from "@/utils/stores/user";
+import axios from "axios";
 import { useSession } from "next-auth/react";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { MutableRefObject, useEffect, useRef, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { BiSolidSend } from "react-icons/bi";
 import { useQuery } from "react-query";
 import { io } from "socket.io-client";
 
@@ -44,15 +48,18 @@ const Chat = () => {
   });
 
   const sendMessage: SubmitHandler<any> = (data) => {
-    const message = {
+    const message: Message = {
       text: data.message,
       room: currentConversation,
-      userID: user?.id,
+      userID: user?.id!,
+      username: user?.username!,
     };
 
     setMessages([...messages, message]);
 
     socket.emit("message", message);
+
+    axios.post("/api/cache/message/save", message);
 
     (document.getElementById("message-input") as HTMLInputElement).value = "";
   };
@@ -65,6 +72,21 @@ const Chat = () => {
     setCurrentUser(data?.user);
     socketInitializer();
   }, [setCurrentUser, data]);
+
+  useEffect(() => {
+    const keyListener = (event: KeyboardEvent) => {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        document.getElementById("message-button")?.click();
+      }
+    };
+
+    document.addEventListener("keydown", keyListener);
+
+    return () => {
+      document.removeEventListener("keydown", keyListener);
+    };
+  });
 
   return (
     <div className="text-white flex w-full">
@@ -81,6 +103,13 @@ const Chat = () => {
             register={register}
             handleSubmit={handleSubmit}
           ></TextInput>
+          <button
+            id="message-button"
+            className="w-[50px] h-[50px] border rounded-full flex items-center justify-center text-xl hover:bg-white  hover:text-black transition-all"
+            type="submit"
+          >
+            <BiSolidSend className="h-[30px] w-[30px]" />
+          </button>
         </form>
       </div>
     </div>

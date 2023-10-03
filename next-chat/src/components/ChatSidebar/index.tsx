@@ -6,6 +6,8 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useCurrentConversation } from "@/utils/stores/currentConversation";
 import { useEffect } from "react";
 import { socket } from "@/app/chat/page";
+import { getMessagesFromCache } from "@/server/getMessagesFromCache";
+import axios from "axios";
 
 type Props = {
   conversations?: Conversation[];
@@ -26,12 +28,18 @@ const ChatSidebar = ({ conversations }: Props) => {
       socket.emit("setup", currentConversation);
     } else {
       const conversationId = searchParams.get("conversation");
+      const messages = getMessages(conversationId!);
 
       setCurrentConversation(conversationId);
 
       socket.emit("setup", currentConversation);
     }
-  }, [conversations]);
+  }, [conversations, searchParams]);
+
+  const getMessages = async (id: string) => {
+    console.log(id);
+    return axios.get(`/api/cache/message/get/${id}`);
+  };
 
   return (
     <div className="h-full w-[300px] border-r border-white border-opacity-20 z-10">

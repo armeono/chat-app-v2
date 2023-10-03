@@ -21,6 +21,7 @@
     "eslint": "8.48.0",
     "eslint-config-next": "13.4.19",
     "express": "^4.18.2",
+    "net": "^1.0.2",
     "next": "13.4.19",
     "next-auth": "^4.23.1",
     "postcss": "8.4.28",
@@ -30,10 +31,16 @@
     "react-hook-form": "^7.46.1",
     "react-icons": "^4.10.1",
     "react-query": "^3.39.3",
+    "redis": "^4.6.10",
     "socket.io-client": "^4.7.2",
     "tailwindcss": "3.3.3",
+    "tls": "^0.0.1",
     "typescript": "5.2.2",
     "utf-8-validate": "^5.0.10",
+    "uuid": "^9.0.1",
     "zustand": "^4.4.1"
+  },
+  "devDependencies": {
+    "@types/uuid": "^9.0.4"
   }
 }
