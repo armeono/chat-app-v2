@@ -9,7 +9,7 @@ const MessagesContainer = ({ messages }: Props) => {
   const { user } = useCurrentUser();
 
   return (
-    <div className="h-full w-full flex flex-col-reverse p-10">
+    <div className="h-full w-full flex flex-col-reverse p-10 z-10">
       <div className="flex flex-col max-h-[100%] overflow-hidden bg-transparent gap-2">
         {messages.map((message: Message, key: any) => (
           <div

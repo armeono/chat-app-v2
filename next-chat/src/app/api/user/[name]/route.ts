@@ -10,7 +10,6 @@ export async function GET(
       where: { username: params.name },
       include: {
         conversations: true,
-        messages: true,
         friends: true,
       },
     });
