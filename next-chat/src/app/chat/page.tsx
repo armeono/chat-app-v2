@@ -59,9 +59,11 @@ const Chat = () => {
 
     socket.emit("message", message);
 
-    axios.post("/api/cache/message/save", message);
-
     (document.getElementById("message-input") as HTMLInputElement).value = "";
+
+    axios.post("/api/message/save", message);
+
+    saveMessage(message);
   };
 
   socket.on("message", (message) => {
