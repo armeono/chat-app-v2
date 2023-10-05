@@ -3,4 +3,5 @@ export type Message = {
   room: string;
   userID: number;
   username: string;
+  sentAt?: string;
 };

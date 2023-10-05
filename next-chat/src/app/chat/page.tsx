@@ -2,6 +2,7 @@
 import ChatSidebar from "@/components/ChatSidebar";
 import MessagesContainer from "@/components/MessagesContainer";
 import TextInput from "@/components/TextInput";
+import { getMessages } from "@/server/getMessages";
 import { getUser } from "@/server/getUser";
 import { saveMessage } from "@/server/saveMessage";
 import { Message } from "@/types/message";
@@ -31,7 +32,7 @@ type ChatForm = {
 const Chat = () => {
   const { currentConversation } = useCurrentConversation();
   const { user, setCurrentUser } = useCurrentUser();
-  const [messages, setMessages] = useState<any>([]);
+  const [messages, setMessages] = useState<Message[]>([]);
   const searchParams = useSearchParams();
 
   const {
@@ -46,6 +47,14 @@ const Chat = () => {
   const { data } = useQuery("user", () => getUser(session?.user?.name), {
     enabled: !!session?.user?.name,
   });
+
+  const { data: fetchedMessages } = useQuery(
+    ["messages", currentConversation],
+    () => getMessages(currentConversation),
+    {
+      enabled: !!session?.user?.name,
+    }
+  );
 
   const sendMessage: SubmitHandler<any> = (data) => {
     const message: Message = {
@@ -90,12 +99,24 @@ const Chat = () => {
     };
   });
 
+  useEffect(() => {
+    if (fetchedMessages) {
+      setMessages(fetchedMessages);
+    }
+  }, [fetchedMessages]);
+
   return (
     <div className="text-white flex w-full">
       <ChatSidebar conversations={data?.user.conversations} />
       <div className="w-[80%] h-full flex flex-col">
-        <div className="h-full flex">
-          <MessagesContainer messages={messages}></MessagesContainer>
+        <div className="h-full flex justify-center items-center">
+          {messages.length > 0 ? (
+            <MessagesContainer messages={messages}></MessagesContainer>
+          ) : (
+            <h2 className="text-xl">
+              Awfully quiet in here! Try sending some messages 🙂
+            </h2>
+          )}
         </div>
         <form
           className="h-1/5 w-full flex items-center gap-4 p-4"
