@@ -16,13 +16,14 @@ const ConversationCard = ({ conversation }: Props) => {
   return (
     <div
       className={`h-[70px] w-full border-b border-white border-opacity-20 ${
-        currentConversation === conversation.id && "bg-cyan-200 bg-opacity-50"
+        currentConversation.id === conversation.id &&
+        "bg-cyan-200 bg-opacity-50"
       } flex items-center gap-2 px-2 cursor-pointer`}
       onClick={() => {
-        setCurrentConversation(conversation.id);
+        setCurrentConversation(conversation);
         router.push(`?conversation=${conversation.id}`);
 
-        socket.emit("setup", currentConversation);
+        socket.emit("setup", currentConversation.id);
       }}
     >
       <div className="h-14 w-14 rounded-full border"></div>

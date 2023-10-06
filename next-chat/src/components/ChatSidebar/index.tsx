@@ -19,17 +19,17 @@ const ChatSidebar = ({ conversations }: Props) => {
     useCurrentConversation();
 
   useEffect(() => {
-    if (!searchParams.get("conversation")) {
+    if (!searchParams?.get("conversation")) {
       setCurrentConversation(conversations && conversations[0].id);
 
       router.push(`?conversation=${conversations && conversations[0].id}`);
-      socket.emit("setup", currentConversation);
+      socket.emit("setup", currentConversation.id);
     } else {
       const conversationId = searchParams.get("conversation");
 
       setCurrentConversation(conversationId);
 
-      socket.emit("setup", currentConversation);
+      socket.emit("setup", currentConversation.id);
     }
   }, [conversations]);
 

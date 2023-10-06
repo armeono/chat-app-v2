@@ -9,7 +9,11 @@ export async function GET(
     const user = await prisma.user.findFirst({
       where: { username: params.name },
       include: {
-        conversations: true,
+        conversations: {
+          include: {
+            users: true,
+          },
+        },
         friends: true,
       },
     });

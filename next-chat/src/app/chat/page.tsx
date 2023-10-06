@@ -34,6 +34,7 @@ const Chat = () => {
   const { user, setCurrentUser } = useCurrentUser();
   const [messages, setMessages] = useState<Message[]>([]);
   const searchParams = useSearchParams();
+  const messagesRef = useRef<HTMLDivElement>();
 
   const {
     register,
@@ -50,7 +51,7 @@ const Chat = () => {
 
   const { data: fetchedMessages } = useQuery(
     ["messages", currentConversation],
-    () => getMessages(currentConversation),
+    () => getMessages(currentConversation.id),
     {
       enabled: !!session?.user?.name,
     }
@@ -59,7 +60,7 @@ const Chat = () => {
   const sendMessage: SubmitHandler<any> = (data) => {
     const message: Message = {
       text: data.message,
-      room: currentConversation,
+      room: currentConversation.id,
       userID: user?.id!,
       username: user?.username!,
     };
@@ -109,7 +110,7 @@ const Chat = () => {
     <div className="text-white flex w-full">
       <ChatSidebar conversations={data?.user.conversations} />
       <div className="w-[80%] h-full flex flex-col">
-        <div className="h-full flex justify-center items-center">
+        <div className="h-[80%] flex justify-center items-center">
           {messages.length > 0 ? (
             <MessagesContainer messages={messages}></MessagesContainer>
           ) : (

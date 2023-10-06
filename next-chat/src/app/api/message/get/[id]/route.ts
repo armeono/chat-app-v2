@@ -23,10 +23,25 @@ export async function GET(
     });
 
     const formattedMessages: Message[] = messages.map((message) => {
+      const date = new Date(message.sentAt);
+
+      const localTime = new Date(date).toLocaleTimeString();
+
+      const formattedDate = `${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`;
+
+      const [hours, minutes, seconds] = localTime.split(":");
+
+      const formattedSeconds = seconds.slice(2);
+
+      const formattedTime = `${hours}:${minutes} ${formattedSeconds}`;
+
       return {
         room: message.conversationId,
         username: message.User.username,
-        sentAt: String(message.sentAt),
+        sentAt: {
+          time: formattedTime,
+          date: String(formattedDate),
+        },
         text: message.data,
         userID: message.userId,
       };
