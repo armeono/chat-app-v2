@@ -1,5 +1,5 @@
 # noodle.io
-Chat application built using Next.js, Socket.io, Prisma, Tailwind.
+Chat application built using Next.js (Typescript), Socket.io, Prisma, Tailwind.
 
 
 <img width="1511" alt="Screenshot 2023-11-19 at 11 05 56 PM" src="https://github.com/armeono/noodle.io/assets/72741758/9f9f42a1-56fe-4771-b2c9-ec4c55306a53">
